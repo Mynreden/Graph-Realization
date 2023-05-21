@@ -34,6 +34,6 @@ public class Vertex<V> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex<?> vertex = (Vertex<?>) o;
-        return Objects.equals(data, vertex.data) && Objects.equals(adjacentVertices, vertex.adjacentVertices);
+        return Objects.equals(data, vertex.data);
     }
 }
