@@ -1,5 +1,4 @@
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Vertex<V> {
     private V data;
@@ -13,8 +12,12 @@ public class Vertex<V> {
         this.adjacentVertices.put(destination, weight);
     }
 
-    public Map<Vertex<V>, Double> getAdjacentVertices(){
-        return this.adjacentVertices;
+    public int countEdges(){
+        return this.adjacentVertices.size();
+    }
+
+    public boolean containEdge(Vertex<V> vertex){
+        return adjacentVertices.containsKey(vertex);
     }
 
     public void deleteAdjacentVertices(Vertex<V> destination){
@@ -27,6 +30,12 @@ public class Vertex<V> {
 
     public void setData(V data) {
         this.data = data;
+    }
+
+    public Iterable<Vertex<V>> adjacencyList() {
+        List<Vertex<V>> list = new LinkedList<>();
+        list.addAll(adjacentVertices.keySet());
+        return list;
     }
 
     @Override
