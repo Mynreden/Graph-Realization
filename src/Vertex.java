@@ -2,10 +2,11 @@ import java.util.*;
 
 public class Vertex<V> {
     private V data;
-    private Map<Vertex<V>, Double> adjacentVertices;
+    private final Map<Vertex<V>, Double> adjacentVertices;
 
     public Vertex(V data){
         this.data = data;
+        this.adjacentVertices = new HashMap<>();
     }
 
     public void addAdjacentVertices(Vertex<V> destination, double weight){
@@ -38,11 +39,20 @@ public class Vertex<V> {
         return list;
     }
 
+    public Double getWeight(Vertex<V> dest){
+        return this.adjacentVertices.get(dest);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex<?> vertex = (Vertex<?>) o;
         return Objects.equals(data, vertex.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data);
     }
 }

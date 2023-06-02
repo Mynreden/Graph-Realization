@@ -22,11 +22,8 @@ public class WeightedGraph<T> {
         if (hasEdge(source, dest)
                 || source.equals(dest))
             return; // reject parallels & self-loops
-        Vertex<T> sourceVertex = getVertex(source);
-        Vertex<T> destVertex = getVertex(dest);
-        if (sourceVertex == null || destVertex == null){
-            return;
-        }
+        Vertex<T> sourceVertex = hasVertex(source) ? getVertex(source) : addVertex(source);
+        Vertex<T> destVertex = hasVertex(dest) ? getVertex(dest) : addVertex(dest);
         sourceVertex.addAdjacentVertices(destVertex, weight);
     }
 
@@ -58,8 +55,8 @@ public class WeightedGraph<T> {
     }
 
     public Iterable<T> adjacencyList(T v) {
-        if (!hasVertex(v)) return null;
         List<T> list = new ArrayList<>();
+        if (!hasVertex(v)) return list;
         for (Vertex<T> vertex : vertices.get(v).adjacencyList()){
             list.add(vertex.getData());
         }
@@ -71,7 +68,7 @@ public class WeightedGraph<T> {
         return vertices.get(v).adjacencyList();
     }
 
-    private Vertex<T> getVertex(T data){
+    public Vertex<T> getVertex(T data){
         if (!hasVertex(data)) return null;
         return vertices.get(data);
     }
